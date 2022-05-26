@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, RequestMethod, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -14,6 +14,8 @@ import { UserService } from './service/user.service';
 import { UserController } from './controller/user.controller';
 import { Video, VideoSchema } from './model/video.schema';
 import { User, UserSchema } from './model/user.schema';
+import { isAuthenticated } from './app.middleware';
+
 require('dotenv').config()
 
 const secret = process.env.jwtSecret
@@ -43,4 +45,11 @@ const secret = process.env.jwtSecret
   controllers: [AppController, VideoController, UserController],
   providers: [AppService, VideoService, UserService]
 })
-export class AppModule { }
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(isAuthenticated)
+      .exclude({ path: 'api/video/:id', method: RequestMethod.GET })
+      .forRoutes(VideoController);
+  }
+}
