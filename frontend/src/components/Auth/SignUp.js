@@ -35,11 +35,11 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const form = {
-      fullname : data.get('fname') +' '+ data.get('lname'),
+      fullname: data.get('fname') + ' ' + data.get('lname'),
       email: data.get('email'),
       password: data.get('password')
     };
-    await axios.post("http://localhost:3002/api/v1/user/signup", form);  
+    await axios.post("http://localhost:3002/api/user/signup", form);
     navigate('/')
   };
 

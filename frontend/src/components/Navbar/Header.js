@@ -42,7 +42,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         width: '100%',
@@ -55,7 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function SearchAppBar({isLoggedIn}) {
+export default function SearchAppBar({ isLoggedIn }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -71,7 +70,7 @@ export default function SearchAppBar({isLoggedIn}) {
         formData.append("video", video);
         formData.append("cover", cover);
         const token = localStorage.getItem('token');
-        await axios.post("http://localhost:3002/api/v1/video", formData, {
+        await axios.post("http://localhost:3002/api/video", formData, {
             headers: ({
                 Authorization: 'Bearer ' + token
             })
