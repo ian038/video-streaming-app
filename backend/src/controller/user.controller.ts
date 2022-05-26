@@ -9,9 +9,10 @@ export class UserController {
 
     @Post('/signup')
     async Signup(@Res() response, @Body() user: User) {
-        const newUSer = await this.userServerice.signup(user);
+        const newUser = await this.userServerice.signup(user);
+        newUser.password = null
         return response.status(HttpStatus.CREATED).json({
-            newUSer
+            newUser
         })
     }
     @Post('/signin')

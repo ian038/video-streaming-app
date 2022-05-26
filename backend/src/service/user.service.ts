@@ -18,7 +18,8 @@ export class UserService {
             password: hash
         }
         const newUser = new this.userModel(reqBody);
-        return newUser.save();
+        const saved = await newUser.save()
+        return saved;
     }
 
     async signin(user: User, jwt: JwtService): Promise<any> {
